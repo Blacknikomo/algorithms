@@ -5,7 +5,7 @@
  * eyeballing an edge case, timing something roughly. Nothing here is committed
  * knowledge; the real work lives in src/<topic>/<task>/.
  */
-import { twoSum } from '@/arrays/two-sum/two-sum.ts';
+import { twoSum } from '@/array/two-sum/two-sum.ts';
 import { measure } from '@/shared/utils/measure.ts';
 
 const nums = [2, 7, 11, 15];
