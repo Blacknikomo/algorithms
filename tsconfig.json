@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    /* Modern Node target — no transpilation to old syntax, tsx/vitest strip types on the fly. */
+    "target": "ES2023",
+    "lib": ["ES2023"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "types": ["node"],
+
+    /* Allows `import { x } from './file.ts'` — the extension stays visible and honest. */
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "noEmit": true,
+
+    /* Strictness: on, but without noUncheckedIndexedAccess — see Agents.md if you want it. */
+    "strict": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  },
+  "include": ["src", "scripts", "vitest.config.ts"]
+}

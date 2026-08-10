@@ -1,0 +1,15 @@
+node_modules/
+coverage/
+dist/
+*.tsbuildinfo
+
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/launch.json
+!.vscode/settings.json
+!.vscode/extensions.json
+
+npm-debug.log*
+.env
+.env.local
