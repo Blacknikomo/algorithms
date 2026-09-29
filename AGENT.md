@@ -94,7 +94,10 @@ npm run test:watch -- coin-change     # leave this running in a second terminal
 ```
 
 1. **Scaffold.** `npm run new -- <topic>/<slug>` creates the three files. Nothing is
-   overwritten — the script refuses if the folder exists.
+   overwritten — the script refuses if the folder exists. With Claude Code,
+   `/new-algorithm <name> <problem statement>` does steps 1–3 for you: it runs the script,
+   types the stub, fills the README's Problem section and writes the (failing) tests —
+   without solving the problem. See `.claude/skills/new-algorithm/SKILL.md`.
 2. **Write the README first**, at least the Problem section. Restating the input/output
    contract in your own words is where half the bugs get caught.
 3. **Write the failing tests next.** Start from the examples in the problem statement,
