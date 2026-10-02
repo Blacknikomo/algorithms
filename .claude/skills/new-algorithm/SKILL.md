@@ -1,6 +1,6 @@
 ---
 name: new-algorithm
-description: Scaffold a new algorithm practice task in this repo from a task name and its problem statement — creates the folder, a typed solution stub, a filled-in README and a full test suite (examples, edge cases, stress test), but does NOT solve the problem. Use when the user says "new task", "scaffold", "set up a problem", pastes a LeetCode-style problem statement or URL, or invokes /new-algorithm.
+description: Scaffold a new algorithm practice task in this repo from a task name and its problem statement — creates the folder, a typed solution stub, a filled-in README and a full test suite (examples, edge cases, large input; a brute-force stub and stress test only on request), but does NOT solve the problem. Use when the user says "new task", "scaffold", "set up a problem", pastes a LeetCode-style problem statement or URL, or invokes /new-algorithm.
 argument-hint: <task name or topic/slug> <problem statement or URL>
 ---
 
@@ -76,10 +76,12 @@ Rules:
 - Linked lists / trees: use `ListNode` / `TreeNode` from `@/shared/structures/`.
 - "No answer" → follow the statement literally (`-1`, `[]`, `null`, `false`).
 - Parameter names from the statement (`nums`, `target`, `s`, `grid`).
-- **Add a `<fnName>Brute` stub** (same signature, doc comment
-  `/** Reference implementation — keep it obviously correct. */`) when a brute force
-  exists and is cheap to write. It becomes the stress-test reference. Skip it when the
-  obvious approach *is* the optimal one or the brute force is exponential.
+- **No brute-force variant by default.** The stub has one function, `<fnName>`. Add a
+  `<fnName>Brute` stub (same signature, doc comment
+  `/** Reference implementation — keep it obviously correct. */`) **only when the user
+  explicitly asks for one** in the request (e.g. "with a brute force", "add a reference
+  implementation", "with a stress test"). A statement that merely mentions a naive or
+  "clean-then-compare" approach, or a target complexity, is not such a request.
 - "Design" problems (LRU cache, min stack): stub a class with every method throwing,
   constructor included.
 
@@ -89,15 +91,12 @@ Follow `src/array/two-sum/two-sum.test.ts`. Structure:
 
 ```ts
 import { describe, expect, it } from 'vitest';
-import { createRng, randomArray, randomInt } from '@/shared/utils/random.ts'; // only if stress test
-import { <fnName>, <fnName>Brute } from './<slug>.ts';
+import { <fnName> } from './<slug>.ts';
 
 type Solver = (<params>) => <ReturnType>;
 
-const implementations: [string, Solver][] = [
-  ['<fnName>', <fnName>],
-  ['<fnName>Brute (reference)', <fnName>Brute],
-];
+// A second approach is one more row here.
+const implementations: [string, Solver][] = [['<fnName>', <fnName>]];
 
 describe.each(implementations)('%s', (_name, solve) => {
   // 1. Examples from the statement — one row each, verbatim.
@@ -105,9 +104,19 @@ describe.each(implementations)('%s', (_name, solve) => {
 
   // 2. Edge cases — derived from the constraints.
   it.each([...])(...);   // or separate `it` blocks for one-offs with a telling name
-});
 
-// 3. Stress test — only when a Brute stub exists.
+  // 3. Larger input — see below.
+});
+```
+
+**Only when the user asked for a Brute stub** (step 3): add
+`['<fnName>Brute (reference)', <fnName>Brute]` to `implementations`, import it and the
+random helpers, and append a stress test. Large inputs then go in a separate
+`describe` that calls `<fnName>` only, so a slow reference cannot time them out.
+
+```ts
+import { createRng, randomArray, randomInt } from '@/shared/utils/random.ts';
+
 describe('<fnName> vs <fnName>Brute', () => {
   it('agrees with the reference implementation on random input', () => {
     const rng = createRng(<today as YYYYMMDD>);
@@ -184,9 +193,10 @@ Short message:
 
 - the folder and files created,
 - the signature you chose, and any interpretation of an ambiguous statement,
-- distinct case count by group (examples / edge cases / large input / stress),
+- distinct case count by group (examples / edge cases / large input, plus stress if
+  a Brute stub was requested),
 - that you checked every expected value against a scratch solver (no details of it),
 - the command to start: `npm run test:watch -- <slug>`,
-- a reminder that `<fnName>Brute` is there to be written first, if you added one.
+- only if you added `<fnName>Brute` on request: a reminder to write it first.
 
 No hints about the approach. Do not commit.
