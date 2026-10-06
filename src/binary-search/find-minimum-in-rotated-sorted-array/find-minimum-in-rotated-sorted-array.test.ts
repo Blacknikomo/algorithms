@@ -1,10 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { findMin } from './find-minimum-in-rotated-sorted-array.ts';
+import { findMin, findMinFirstAttempt } from './find-minimum-in-rotated-sorted-array.ts';
 
 type Solver = (nums: readonly number[]) => number;
 
-// A second approach is one more row here.
-const implementations: [string, Solver][] = [['findMin', findMin]];
+const implementations: [string, Solver][] = [
+  ['findMin (compare with nums[hi])', findMin],
+  ['findMinFirstAttempt', findMinFirstAttempt],
+];
 
 describe.each(implementations)('%s', (_name, solve) => {
   it.each([
