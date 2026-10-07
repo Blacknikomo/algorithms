@@ -4,31 +4,21 @@
 
 /** TODO: describe the approach and its complexity. */
 export function isValid(s: string): boolean {
-  let result = true;
+  if (s.length % 2 !== 0) return false;
+
   const stack: string[] = [];
-  const complements: Record<string, string> = {
-    "]": "[",
-    "}": "{",
-    ")": "(",
-  }
+  const complements: Record<string, string> = { ']': '[', '}': '{', ')': '(' };
 
   for (let el of s) {
     if (complements[el]) {
       const prevBracket = stack.pop();
-      if (!prevBracket) {
-        return false;
-      } else if (prevBracket == complements[el]) {
-        continue;
-      } else {
+      if (!prevBracket || prevBracket != complements[el]) {
         return false;
       }
     } else {
       stack.push(el);
-      continue;
     }
   }
 
-  if (stack.length) return false;
-
-  return result;
+  return stack.length === 0;
 }
