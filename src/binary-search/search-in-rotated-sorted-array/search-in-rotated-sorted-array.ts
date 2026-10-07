@@ -19,13 +19,13 @@ export function searchRotated(nums: readonly number[], target: number): number {
 
     // [6, 7, 8, 9, 10, 0, 1, 2, 3, 4, 5]
     if (isSortedL) {
-      if (numL < target && target < numM) {
+      if (numL <= target && target < numM) {
         high = mid - 1;
       } else {
         low = mid + 1;
       }
     } else {
-      if (numM < target && target < numH) {
+      if (numM < target && target <= numH) {
         low = mid + 1;
       } else {
         high = mid - 1;
