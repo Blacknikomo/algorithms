@@ -21,7 +21,7 @@ export function trap(height: readonly number[]): number {
       l++;
     } else {
       sum += rmax - height[r];
-      r--;ritus 
+      r--;
     }
   }
 
