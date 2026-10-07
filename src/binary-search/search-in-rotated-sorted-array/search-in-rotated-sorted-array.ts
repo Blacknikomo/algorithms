@@ -2,14 +2,6 @@
  * Search in Rotated Sorted Array — see README.md next to this file.
  */
 
-/** TODO: describe the approach and its complexity. */
-// [4, 5, 6, 7, 0, 1, 2]`, target `0` → `4`
-// [4, 5, 6, 7, 0, 1, 2]`, target `3` → `-1`
-// [4, 5, 6, 7, 8, 1, 2]`, target `8` → `-1`
-// [7, 6, 5, 4, 3, 2, 1]`, target `3` → `4`
-// [1, 2, 3, 4, 5, 6, 7]`, target `3` → `2`
-// [1, 2, 3, 4, 5, 6, 7]`, target `0` → `-1`
-
 export function searchRotated(nums: readonly number[], target: number): number {
   let result = -1;
   let low = 0;
