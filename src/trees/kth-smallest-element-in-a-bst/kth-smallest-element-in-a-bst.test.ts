@@ -1,6 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import { TreeNode, arrayToTree } from '@/shared/structures/tree-node.ts';
-import { kthSmallest, kthSmallestBrute } from './kth-smallest-element-in-a-bst.ts';
+import {
+  kthSmallest,
+  kthSmallestBrute,
+  kthSmallestStack,
+} from './kth-smallest-element-in-a-bst.ts';
 
 type Solver = (root: TreeNode | null, k: number) => number;
 
@@ -8,6 +12,7 @@ type Solver = (root: TreeNode | null, k: number) => number;
 const implementations: [string, Solver][] = [
   ['kthSmallest', kthSmallest],
   ['kthSmallestBrute (reference)', kthSmallestBrute],
+  ['kthSmallestStack', kthSmallestStack],
 ];
 
 /** A height-balanced BST holding `values[lo..hi]`, which must be sorted ascending. */

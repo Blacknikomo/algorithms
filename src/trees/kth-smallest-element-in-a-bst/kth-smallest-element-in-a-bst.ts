@@ -2,53 +2,65 @@
  * Kth Smallest Element in a BST — see README.md next to this file.
  */
 
-import type { TreeNode } from '@/shared/structures/tree-node.ts';
+import { TreeNode } from '@/shared/structures/tree-node.ts';
 
 /** TODO: describe the approach and its complexity. */
-// { tree: [3, 1, 4, null, 2], k: 1, expected: 1 },
-// { tree: [5, 3, 6, 2, 4, null, null, 1], k: 3, expected: 3 },
-// { tree: [1, null, 2, null, 3, null, 4], k: 4, expected: 4 },
 export function kthSmallestBrute(root: TreeNode | null, k: number): number {
-  if (!root) throw new Error('No root provided');
+  const results = [];
+  const queue: TreeNode[] = root ? [root!] : [];
 
-  const storage: number[] = [];
-  const check = (node: TreeNode) => {
-    if (!node) return null;
+  let head = 0;
+  while (head < queue.length) {
+    const el = queue[head++];
+    const { left, right } = el;
 
-    if (node.left) check(node.left);
-    if (node.right) check(node.right);
+    if (left) queue.push(left);
+    if (right) queue.push(right);
 
-    storage.push(node.val);
-  };
+    results.push(el.val);
+  }
 
-  check(root);
-
-  return storage.sort((a, b) => a - b).at(k - 1)!;
+  return results.sort((a, b) => a - b)[k - 1];
 }
 
 /** TODO: describe the approach and its complexity. */
 export function kthSmallest(root: TreeNode | null, k: number): number {
-  if (!root) throw new Error('No root provided');
-  let result = 0;
-  let counter = 0;
+  // In Binary Tree the left element is always smaller than right one. So we
+  // have to iterate preorder (left item first)
+  const results: number[] = [];
 
-  const check = (node: TreeNode) => {
-    if (!node) return null;
-    if (counter > k) return null;
+  (function dfs(item: TreeNode | null) {
+    if (!item) return;
 
-    if (node.left) {
-      check(node.left);
+    const { left, right, val } = item;
+
+    if (left) dfs(left);
+
+    results.push(val);
+    if (results.length == k) return;
+    if (right) dfs(right);
+  })(root);
+
+  return results[k - 1];
+}
+
+export function kthSmallestStack(root: TreeNode | null, k: number): number {
+  const stack: TreeNode[] = [];
+  let current: TreeNode | null = root;
+  let count = 0;
+
+  while (stack.length || current) {
+    while (current) {
+      stack.push(current);
+      current = current.left;
     }
-    counter++;
-    if (counter === k) {
-      result = node.val;
-    }
 
-    if (node.right) {
-      check(node.right);
-    }
-  };
+    const node = stack.pop()!;
+    count++;
 
-  check(root);
-  return result;
+    if (count === k) return node.val;
+    current = node.right; 
+  }
+
+  return -1;
 }

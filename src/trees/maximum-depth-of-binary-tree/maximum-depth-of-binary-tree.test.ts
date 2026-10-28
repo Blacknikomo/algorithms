@@ -1,12 +1,13 @@
 import { describe, expect, it } from 'vitest';
 import { TreeNode, arrayToTree } from '@/shared/structures/tree-node.ts';
-import { maxDepth, maxDepthTopDown } from './maximum-depth-of-binary-tree.ts';
+import { maxDepth, maxDepthTopDown, maxDepthBfs } from './maximum-depth-of-binary-tree.ts';
 
 type Solver = (root: TreeNode | null) => number;
 
 const implementations: [string, Solver][] = [
   ['maxDepth (bottom-up)', maxDepth],
   ['maxDepthTopDown', maxDepthTopDown],
+  ['maxDepthBfs', maxDepthBfs],
 ];
 
 /** A straight chain of `length` nodes, every child on the given side. */

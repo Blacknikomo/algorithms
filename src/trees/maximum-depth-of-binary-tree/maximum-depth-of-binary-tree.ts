@@ -8,11 +8,7 @@ import type { TreeNode } from '@/shared/structures/tree-node.ts';
  * TODO: describe the approach and its complexity.
  */
 export function maxDepth(root: TreeNode | null): number {
-  if (!root) return 0;
-
-  const result = 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
-
-  return result;
+  throw new Error('maxDepth: not implemented');
 }
 
 /**
@@ -20,19 +16,13 @@ export function maxDepth(root: TreeNode | null): number {
  * TODO: describe the approach and its complexity.
  */
 export function maxDepthTopDown(root: TreeNode | null): number {
-  let best = 0;
+  throw new Error('maxDepthTopDown: not implemented');
+}
 
-  (function go(r: TreeNode | null, localMax: number) {
-    if (r == null) return null;
-
-    const depth = localMax + 1;
-    go(r.left, localMax + 1);
-    go(r.right, localMax + 1);
-
-    best = Math.max(best, depth - 1);
-
-    return r;
-  })(root, 1);
-
-  return best;
+/**
+ * Iterative, level by level (BFS) — no recursion.
+ * TODO: describe the approach and its complexity.
+ */
+export function maxDepthBfs(root: TreeNode | null): number {
+  throw new Error('maxDepthBfs: not implemented');
 }

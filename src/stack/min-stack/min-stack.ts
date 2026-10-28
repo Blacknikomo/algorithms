@@ -43,6 +43,6 @@ export class MinStack {
   /** Only called on a non-empty stack. */
   getMin(): number {
     if (!this.stack.length) throw new Error('Stack is empty');
-    return this.min;
+    return this.min ?? 0;
   }
 }

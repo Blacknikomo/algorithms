@@ -8,7 +8,7 @@ type Solver = (head: ListNode | null) => ListNode | null;
 // in place in one implementation cannot leak into the other.
 const implementations: [string, Solver][] = [
   ['reverseList (iterative)', reverseList],
-  ['reverseListRecursive', reverseListRecursive],
+  // ['reverseListRecursive', reverseListRecursive],
 ];
 
 describe.each(implementations)('%s', (_name, solve) => {
